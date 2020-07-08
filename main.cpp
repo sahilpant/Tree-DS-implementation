@@ -69,6 +69,42 @@ void Postorder(node *root){
     }
 }
 
+node* Find(node *root,int key){
+    if(root == NULL)
+    return NULL;
+    
+    if(key>root->data)
+    return  Find(root->right,key);
+    if(key<root->data)
+    return Find(root->left,key);
+    return root;
+}
+
+int FindMin(node *root){
+    int min = INT_MAX;
+    if(root == NULL){
+        return INT_MIN;
+    }
+    while(root){
+        if(root->data < min)
+        min = root->data;
+        root = root->left;
+    }
+    return min;
+}
+
+int FindMax(node *root){
+    int max = INT_MIN;
+    if(root == NULL){
+        return INT_MAX;
+    }
+    while(root){
+        if(root->data > max)
+        max = root->data;
+        root = root->right;
+    }
+    return max;
+}
 
 int main()
 {
@@ -87,7 +123,10 @@ int main()
     cout<<"\n1. Insert an element::";
     cout<<"\n2. Preorder traversal::";
     cout<<"\n3. Postorder traversal::";
-    cout<<"\n4. Inorder traversal::\n";
+    cout<<"\n4. Inorder traversal::";
+    cout<<"\n5.Find an element in the tree::";
+    cout<<"\n6.Find Minimum::";
+    cout<<"\n7.Find Maximum::\n";
     cin>>n;
     switch(n)
     {
@@ -108,6 +147,23 @@ int main()
 
         case 4:
         Inorder(root);
+        break;
+        
+        case 5:
+        int key;
+        cout<<"\nEnter the value you want to find::";
+        cin>>key;
+        if(Find(root,key)) cout<<"\nValue is in the tree";
+        else cout<<"\nValue is not in the tree";
+
+        case 6:
+        if(FindMin(root)!=INT_MIN) cout<<"\n Minimum value in the tree is::"<<FindMin(root);
+        else cout<<"Tree is empty";
+        break;
+        
+        case 7:
+        if(FindMax(root)!=INT_MAX) cout<<"\n Maximum value in the tree is::"<<FindMax(root);
+        else cout<<"Tree is empty";
         break;
     }
     char ch1;
