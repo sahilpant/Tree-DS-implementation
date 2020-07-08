@@ -17,30 +17,28 @@ struct TreeNode {
 typedef struct TreeNode node;
 
 
-node *create(){
+node* create(int data){
     node *NewNode = new node;
-    cout<<"Enter the first element::";
-    cin>>NewNode->data;
+    NewNode->data = data;
     return NewNode;
 }
 
-void insert(node *root,int data){
-    node *NewNode = new node;
-    NewNode->data = data;
+node* insert(node *root,int data){
+    
+    if(root == NULL){
+        return create(data);
+    }
+    
     if(root)
     {
         if(root->data > data){
-            insert(root->left,data);
-            cout<<"\n in the left subtree";
+            root->left = insert(root->left,data);
         }
         else
         {
-            insert(root->right,data);
-            cout<<"\n in the right subtree";
-
+            root->right = insert(root->right,data);
         }
     }
-    root = NewNode;
 }
 
 
@@ -58,7 +56,7 @@ void Inorder(node *root)
     if(root)
     {
         Inorder(root->left);
-        cout<<root->data;
+        cout<<root->data<<" ";
         Inorder(root->right);
     }
 }
@@ -67,27 +65,29 @@ void Postorder(node *root){
     if(root){
         Postorder(root->left);
         Postorder(root->right);
-        cout<<root->data;
+        cout<<root->data<<" ";
     }
 }
 
 
 int main()
 {
-    char ch;int n;
-    cout<<"Do You want to create a BST?";
+    char ch;int n;int data;
+    cout<<"\nDo You want to create a BST?";
     cin>>ch;
     A:
     if(ch == 'y'||ch == 'Y')
     {
-        create();
+        cout<<"\nEnter the data::";
+        cin>>data;
+        root = create(data);
     }
     B:
     cout<<"\nChoose from the below options::";
     cout<<"\n1. Insert an element::";
     cout<<"\n2. Preorder traversal::";
     cout<<"\n3. Postorder traversal::";
-    cout<<"\n4. Inorder traversal::";
+    cout<<"\n4. Inorder traversal::\n";
     cin>>n;
     switch(n)
     {
